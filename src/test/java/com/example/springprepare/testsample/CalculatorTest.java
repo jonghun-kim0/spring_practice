@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 @DisplayName("계산기 테스트")
 
 class CalculatorTest {
+    //mock(모의 객체)
+    //before each
     @Test
     @DisplayName("곱하기 테스트")
     void test1() {
@@ -74,5 +76,40 @@ class CalculatorTest {
         //then (결과.)
         System.out.println("result = " + result);
         Assertions.assertEquals(6, result);
+    }
+
+    @Test
+    @DisplayName("예외 테스트")
+    void test5() {
+        //given
+        Calculator calculator = new Calculator();
+        int num1 = 8;
+        int num2 = 2;
+        String op = "%";
+
+        //when (테스트 실행.)
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> calculator.operate(num1,op,num2)
+        );
+
+        //then (결과)
+        Assertions.assertEquals("잘못된 연산자입니다.",thrown.getMessage());
+    }
+
+    @Test
+    @DisplayName("null 테스트")
+    void test6() {
+        //given
+        Calculator calculator = new Calculator();
+        int num1 = 8;
+        int num2 = 0;
+        String op = "/";
+
+        //when (테스트 실행.)
+        Double result = calculator.operate(num1,op,num2);
+
+        //then (결과.)
+        System.out.println("result = " + result);
+        Assertions.assertNull(result);
     }
 }
